@@ -14,6 +14,10 @@
 
 * Нажмите кнопку «Создать кластер» и дождитесь окончания процесса создания, статус кластера = RUNNING. Кластер создаётся от 5 до 10 минут.
 
+![alt text](https://github.com/SemikovaTV/hw_postgress_cluster_yc/blob/main/6.jpg)
+![alt text](https://github.com/SemikovaTV/hw_postgress_cluster_yc/blob/main/7.jpg)
+![alt text](https://github.com/SemikovaTV/hw_postgress_cluster_yc/blob/main/8.jpg)
+
 #### Подключение к мастеру и реплике 
 
 * Используйте инструкцию по подключению к кластеру, доступную на вкладке «Обзор»: cкачайте SSL-сертификат и подключитесь к кластеру с помощью утилиты psql, указав hostname всех узлов и атрибут ```target_session_attrs=read-write```.
@@ -22,10 +26,14 @@
 ```
 select case when pg_is_in_recovery() then 'REPLICA' else 'MASTER' end;
 ```
+
+![alt text](https://github.com/SemikovaTV/hw_postgress_cluster_yc/blob/main/1.jpg)
+
 * Посмотрите количество подключенных реплик:
 ```
 select count(*) from pg_stat_replication;
 ```
+![alt text](https://github.com/SemikovaTV/hw_postgress_cluster_yc/blob/main/2.jpg)
 
 ### Проверьте работоспособность репликации в кластере
 
@@ -45,15 +53,19 @@ insert into test_table values('Строка 1');
 ```
 select case when pg_is_in_recovery() then 'REPLICA' else 'MASTER' end;
 ```
+![alt text](https://github.com/SemikovaTV/hw_postgress_cluster_yc/blob/main/3.jpg)
+
 * Проверьте состояние репликации
 ```
 select status from pg_stat_wal_receiver;
 ```
+![alt text](https://github.com/SemikovaTV/hw_postgress_cluster_yc/blob/main/4.jpg)
 
 * Для проверки, что механизм репликации данных работает между зонами доступности облака, выполните запрос к таблице, созданной на предыдущем шаге:
 ```
 select * from test_table;
 ```
+![alt text](https://github.com/SemikovaTV/hw_postgress_cluster_yc/blob/main/5.jpg)
 
 *В качестве результата вашей работы пришлите скриншоты:*
 
